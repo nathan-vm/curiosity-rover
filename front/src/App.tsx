@@ -25,18 +25,18 @@ function App() {
   }, [position])
 
   const table = useMemo(() => {
-    const table = Array(5).fill(null).map(() => Array(5).fill(""))
+    const table = Array(9).fill(null).map(() => Array(9).fill(""))
     let displayY = position.y
     let displayX = position.x
 
-    if(position.y > 4) {
+    if (position.y > 4) {
       displayY = 4
-    } else if (position.y < 0){
+    } else if (position.y < 0) {
       displayY = 0
     }
-    if(position.x > 4) {
+    if (position.x > 4) {
       displayX = 4
-    } else if (position.x < 0){
+    } else if (position.x < 0) {
       displayX = 0
     }
 
@@ -78,9 +78,9 @@ function App() {
       <h1 className="text-6xl text-white font-black mt-10" >
         Curiosity Rover
       </h1>
-      <main className='grid grid-cols-2 gap-8 mt-8'>
-        <div className='bg-game-gradient p-10 rounded-lg'>
-          <table >
+      <main className='grid grid-cols-12 gap-4 mt-8'>
+        <div className='bg-game-gradient p-10 rounded-lg col-span-10 content-center'>
+          <table className='m-auto'>
             <tbody>
               {table.slice(0)
                 .reverse()
@@ -103,11 +103,9 @@ function App() {
             <tfoot>
               <tr>
                 <th>{" "}</th>
-                <th className='p-4 w-3 h-3'>0</th>
-                <th className='p-4 w-3 h-3'>1</th>
-                <th className='p-4 w-3 h-3'>2</th>
-                <th className='p-4 w-3 h-3'>3</th>
-                <th className='p-4 w-3 h-3'>4</th>
+                {table[0].map((_, i) => (
+                  <th className='p-4 w-3 h-3'>{i}</th>
+                ))}
               </tr>
             </tfoot>
           </table>
