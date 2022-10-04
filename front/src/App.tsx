@@ -1,12 +1,16 @@
 import { useCallback, useMemo, useState } from 'react'
 import './styles/main.css'
 import curiosityImg from './assets/curiosity.png'
-import { useRover } from './context'
+import { Direction, useRover } from './context'
 import api from './service/api'
 
 function App() {
   const { position, setPosition } = useRover()
   const [movement, setMovement] = useState("")
+  const [directionSeted, setDirectionSeted] = useState<Direction>("N")
+  const [size, setSize] = useState(9)
+  const [positionY, setPositionY] = useState(0)
+  const [positionX, setPositionX] = useState(0)
 
   const delay = useCallback((timeOut: number) => new Promise((res, rej) => setTimeout(res, timeOut)), [])
 
@@ -17,32 +21,32 @@ function App() {
     })
 
     for (var i = 0; i < data.length; i++) {
-      await delay(2000)
-      console.log(data[i])
+      await delay(500)
       setPosition(data[i])
     }
 
   }, [position])
 
   const table = useMemo(() => {
-    const table = Array(9).fill(null).map(() => Array(9).fill(""))
+    const table = Array(size).fill(null).map(() => Array(size).fill(""))
+    const maxIndex = size - 1
     let displayY = position.y
     let displayX = position.x
 
-    if (position.y > 4) {
-      displayY = 4
+    if (position.y > maxIndex) {
+      displayY = maxIndex
     } else if (position.y < 0) {
       displayY = 0
     }
-    if (position.x > 4) {
-      displayX = 4
+    if (position.x > maxIndex) {
+      displayX = maxIndex
     } else if (position.x < 0) {
       displayX = 0
     }
 
     table[displayY][displayX] = position.direction
     return table
-  }, [position])
+  }, [position, size])
 
   const image = useMemo(() => {
     let deg = 'rotate-0'
@@ -72,6 +76,26 @@ function App() {
   const empty = useMemo(() => (
     <div className='w-10 h-10' ></div>
   ), [])
+
+  const verifyDirection = useCallback((direction: string): Direction => {
+    switch (direction) {
+      case "N":
+
+        return "N"
+      case "S":
+
+        return "S"
+      case "E":
+
+        return "E"
+      case "W":
+
+        return "W"
+
+      default:
+        return "N"
+    }
+  }, [])
 
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
@@ -110,10 +134,41 @@ function App() {
             </tfoot>
           </table>
         </div>
-        <div className=' ' >
-          <input value={movement} onChange={(e) => setMovement(e.target.value)} />
-          <button onClick={() => handleSubmit(movement)} >Teste</button>
-          <button onClick={() => setPosition({ x: 1, y: 2, direction: "N" })} >Reset</button>
+        <div className='grid grid-rows-12 gap-4 ' >
+          <div>
+            <label id='size' > Bord Size </label>
+            <input
+              id='size'
+              name='size'
+              type="number"
+              placeholder='size'
+              value={size}
+              onChange={(e) => setSize(Number(e.target.value) > 1 ? Number(e.target.value) : 2)}
+            />
+          </div>
+          <div>
+
+            <label id='position-x' > Position X</label>
+            <input
+              id='position-x'
+              name='position-x'
+              placeholder='position-x'
+              value={positionX}
+              onChange={(e) => setPositionX(Number(e.target.value))}
+            />
+            <label id='position-y' > Position Y</label>
+            <input placeholder='position-y' value={positionY} onChange={(e) => setPositionY(Number(e.target.value))} />
+
+            <label id='direction' > Direction </label>
+            <input placeholder='direction' value={directionSeted} onChange={(e) => setDirectionSeted(verifyDirection(e.target.value))} />
+            <button onClick={() => setPosition({ x: positionX, y: positionY, direction: directionSeted })} >Set Position</button>
+          </div>
+
+          <div>
+            <label id='movement' > Movement (only "M" | "L" | "R") </label>
+            <input name="movement" value={movement} onChange={(e) => setMovement(e.target.value)} />
+            <button onClick={() => handleSubmit(movement)} >Teste</button>
+          </div>
         </div>
       </main>
 

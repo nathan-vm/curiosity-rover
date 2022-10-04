@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, FC } from "react";
 
-export type Position = { x: number; y: number; direction: 'N' | 'S' | 'W' | 'E' }
+export type Direction = 'N' | 'S' | 'W' | 'E'
+export type Position = { x: number; y: number; direction: Direction }
 
 interface RoverContextData {
   position: Position,
