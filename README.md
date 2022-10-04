@@ -2,9 +2,9 @@
 
 ## How to run this project ?
 
-First of all, you need install the dependencies, for this prefere use [Yarn](https://classic.yarnpkg.com/en/docs/install), because this repository use [yarn workspace](https://classic.yarnpkg.com/lang/en/docs/workspaces/), but if prefere use NPM, [use this guide](/###using NPM)
+First of all, you need install the dependencies, for this prefere use [Yarn](https://classic.yarnpkg.com/en/docs/install), because this repository use [yarn workspace](https://classic.yarnpkg.com/lang/en/docs/workspaces/), but if prefere use NPM, [use this guide](#using-npm-to-install-and-run)
 
-### install dependencies
+### Install dependencies
 
 On root folder, run: 
 
@@ -31,7 +31,7 @@ after that, you will see something like this on your folder schema
 
 ```
 
-### run the app
+### Run the app
 
 After install dependencies, just run on root folder:
 
@@ -39,7 +39,7 @@ After install dependencies, just run on root folder:
 yarn dev
 ```
 
-Something similar to this is spot on your terminal, just open the link market as `Local:` in your browser. The `listening to:` is the server, you can test it on Insomnia, postman or other prefere software in route `/move`, known more in this section
+Something similar to this is spot on your terminal, just open the link market as `Local:` in your browser. The `listening to:` is the server, you can test it on Insomnia, postman or other prefere software in route `/move`, known more in [this section](#testing-server)
 
 ```
   VITE v3.1.4  ready in 460 ms
@@ -49,7 +49,7 @@ Something similar to this is spot on your terminal, just open the link market as
 listening to: http://localhost:3333
 ```
 
-### testing server
+### Testing server
 
 You can test the server using some software to make request, like curl, Postman or even Insomnia. Like this example:
 
@@ -63,7 +63,7 @@ curl --request POST \
 }'
 ```
 
-### using NPM to install and run
+### Using NPM to install and run
 
 If you don't have yarn, or don't want to use it, it's OK, you still be able to run this project, just open each folder (`/front` and `/server`) on a terminal and run `npm install`, after that you will have now a package-lock.json on each one, dont worrie about then, just ignore it.
 
