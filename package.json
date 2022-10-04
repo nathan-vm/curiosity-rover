@@ -1,0 +1,15 @@
+{
+  "name": "curiosityr-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nathan <nathan.v.marcelino@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "front",
+    "server"
+  ],
+  "scripts": {
+    "dev":"yarn workspace server dev & yarn workspace front dev"
+  }
+}
